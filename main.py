@@ -5,9 +5,9 @@ from alarm.enums import DayOfWeek
 
 # Example usage
 clock1 = AlarmClock()
-clock2 = AlarmClock()
+# clock2 = AlarmClock()
 
-print("Are clock1 and clock2 the same instance?", clock1 is clock2)
+# print("Are clock1 and clock2 the same instance?", clock1 is clock2)
 
 # Add an alarm
 clock1.add_alarm("12:20", "saturday")
