@@ -4,7 +4,8 @@ from alarm.enums import DayOfWeek
 from alarm.constants import (
     SNOOZE_DURATION_MINUTES, 
     SNOOZE_DURATION_SECONDS, 
-    SNOOZE_COUNT_THRESHOLD
+    SNOOZE_COUNT_THRESHOLD,
+    ALARM_AUTO_DISMISSAL_TIMEOUT_SECONDS
 )
 
 
@@ -30,12 +31,21 @@ class Alarm:
         return self._wait_for_user_input
     
     def trigger(self) -> None:
+        """Triggers the alarm. Auto dismisses in {ALARM_AUTO_DISMISSAL_TIMEOUT_SECONDS} seconds."""
         with self._lock:
             print(f"Alarm alert for {self.day_of_week.name.capitalize()} at {self.alarm_time}")
             self._wait_for_user_input = True
-            dismiss_alarm = input('Dismiss the alarm ? Y / N :\n')
-            self._handle_dismiss_alarm(dismiss_alarm)
 
+            if ALARM_AUTO_DISMISSAL_TIMEOUT_SECONDS:
+                # Set timer and if timer expires, then the user input is treated as 'N'
+                timer = threading.Timer(ALARM_AUTO_DISMISSAL_TIMEOUT_SECONDS, self._handle_dismiss_alarm, args=('N',))
+                timer.start()
+                dismiss_alarm = input('Dismiss the alarm ? Y / N :\n')
+                timer.cancel()  # Cancel the timer as input received
+            else:
+                dismiss_alarm = input('Dismiss the alarm ? Y / N :\n')
+            
+            self._handle_dismiss_alarm(dismiss_alarm)
 
     def _handle_dismiss_alarm(self, user_input) -> None:
         """Handle Dismissal or Snoozing of the Alarm."""
