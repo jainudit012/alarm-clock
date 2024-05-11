@@ -81,7 +81,8 @@ class AlarmClock:
                 return True
         return False
 
-    def display_current_time(self, format="%H:%M:%S") -> None:
+    @staticmethod
+    def display_current_time(format="%H:%M:%S") -> None:
         """Displays the current time in the specified format.
 
         Args:
@@ -128,5 +129,3 @@ class AlarmClock:
             print("Alarm removed.")
         else:
             print("Alarm not found.")
-
-
