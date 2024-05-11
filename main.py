@@ -1,17 +1,22 @@
-from alarm.alarm_clock import AlarmClock
+from datetime import datetime
 import time
-from alarm.enums import DayOfWeek
+from alarm.alarm_clock import AlarmClock
 
-
-# Example usage
-clock1 = AlarmClock()
+# Inialize the clock
+clock = AlarmClock()
 # clock2 = AlarmClock()
 
-# print("Are clock1 and clock2 the same instance?", clock1 is clock2)
+# print("Are clock and clock2 the same instance?", clock is clock2)
 
+# now = datetime.now()
+# print(now)
 # Add an alarm
-clock1.add_alarm("12:20", "saturday")
+clock_alarm_id = clock.add_alarm("17:14", "saturday")
+# clock.delete_alarm(clock_alarm_id) # Remove the alarm
 
 while True:
-    clock1.display_current_time()
+    # if there are pending alarms then we need to 
+    # wait for user to dismiss or snooze the alarm
+    if not clock.pending_alarms:
+        clock.display_current_time()
     time.sleep(1)

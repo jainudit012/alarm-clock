@@ -80,6 +80,15 @@ class AlarmClock:
             if alarm.alarm_time == alarm_time and alarm.day_of_week == day_of_week:
                 return True
         return False
+    
+    @property
+    def pending_alarms(self) -> bool:
+        """Checks if there are pending alarms which have yet to receive human input.
+        """
+        pending_alarm_alerts = False
+        for alarm in self.alarms.values():
+            pending_alarm_alerts |= alarm.ringing
+        return pending_alarm_alerts
 
     @staticmethod
     def display_current_time(format="%H:%M:%S") -> None:

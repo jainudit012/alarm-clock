@@ -55,7 +55,8 @@ clock1 = AlarmClock()
 clock1.add_alarm("12:20", "saturday")
 
 while True:
-    clock1.display_current_time()
+    if not clock.pending_alarms:
+        clock.display_current_time()
     time.sleep(1)
 ```
 The snooze duration and maximum allowed snoozes can be configured from the ```alarm/constants.py```
