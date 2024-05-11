@@ -48,7 +48,6 @@ python3 -m venv venv
 ```
 from alarm.alarm_clock import AlarmClock
 import time
-from alarm.enums import DayOfWeek
 
 # Instantiate the AlarmClock object
 clock1 = AlarmClock()
@@ -60,3 +59,36 @@ while True:
     time.sleep(1)
 ```
 The snooze duration and maximum allowed snoozes can be configured from the ```alarm/constants.py```
+
+## Usage
+1. Import the AlarmClock class from the alarm_clock module.
+```
+from alarm_clock import AlarmClock
+```
+2. Create an instance of the AlarmClock class.
+```
+clock = AlarmClock()
+```
+3. Add alarms using the add_alarm method.
+```
+alarm_id = clock.add_alarm("07:00", "MONDAY")
+```
+4. Run the alarm system by calling the ```check_alarms``` method.
+```
+clock.check_alarms()
+```
+5. Remove the alarm by calling ```delete_alarm``` method with ```alarm_id``` argument.
+```
+clock.delete_alarm(alarm_id)
+```
+5. Show the current time.
+```
+clock.display_current_time()
+# Or
+AlarmClock.display_current_time()
+```
+The system will continuously check for alarms and trigger them accordingly.
+
+## Contributing
+Contributions are welcome! Please fork the repository, make your changes, and submit a pull request. For major changes, please open an issue first to discuss the proposed changes.
+
